@@ -11,4 +11,4 @@ def fetch_html(url, headers):
     except requests.exceptions.RequestException as e:
         print("A request error occurred: ", e)
 
-    return response.text
+    return html

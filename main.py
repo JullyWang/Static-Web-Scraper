@@ -1,6 +1,6 @@
 import os
 from scraper.fetch import fetch_html
-from scraper.parse import parse_title, parse_category
+from scraper.parse import parse_title, parse_category, parse_product
 from scraper.export import export_csv
 
 # define url + request's headers
@@ -23,4 +23,9 @@ categories = parse_category(html)
 cwd = os.getcwd()
 filename = cwd + '/data/raw/categories.csv'
 export_csv(categories, filename)
+
+# parse products detail
+books = parse_product(html)
+product_file = cwd + '/data/raw/products.csv'
+
 

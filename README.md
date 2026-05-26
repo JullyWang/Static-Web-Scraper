@@ -33,10 +33,10 @@ python main.py
 - Requests
 - BeautifulSoup4
 - CSV
-- os
 
 # Future Improvements
 
 - Export to Excel
 - Add pagination support
 - Improve error handling
+- CLI control
