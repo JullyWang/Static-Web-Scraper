@@ -1,31 +1,68 @@
 import os
+
 from scraper.fetch import fetch_html
-from scraper.parse import parse_title, parse_category, parse_product
+from scraper.parse import (
+    parse_title,
+    parse_category,
+    parse_product
+)
 from scraper.export import export_csv
 
-# define url + request's headers
-url = "https://books.toscrape.com/"
+def main():
+    # =========================
+    # Config
+    # =========================
 
-headers = {
-    "User-Agent": "Mozilla/5.0"
-}
+    url = "https://books.toscrape.com/"
 
-# fetch html
-html = fetch_html(url, headers)
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
 
-# parse main title
-main_title = parse_title(html)
+    base_dir = os.getcwd()
 
-# parse categories
-categories = parse_category(html)
+    category_file = os.path.join(
+        base_dir,
+        "data",
+        "raw",
+        "categories.csv"
+    )
 
-# export categories.csv
-cwd = os.getcwd()
-filename = cwd + '/data/raw/categories.csv'
-export_csv(categories, filename)
+    product_file = os.path.join(
+        base_dir,
+        "data",
+        "raw",
+        "products.csv"
+    )
 
-# parse products detail
-books = parse_product(html)
-product_file = cwd + '/data/raw/products.csv'
+    # =========================
+    # Fetch
+    # =========================
+    html = fetch_html(url, headers)
 
+    # =========================
+    # Parse
+    # =========================
+    # main page title
+    main_title = parse_title(html)
+    print(f"Page title: {main_title}")
 
+    # categories
+    categories = parse_category(html)
+
+    # products
+    books = parse_product(html)
+
+    # =========================
+    # Export
+    # =========================
+    # categories
+    export_csv(categories, category_file)
+
+    # products
+    export_csv(books, product_file)
+
+    print("Export completed.")
+
+if __name__ == "__main__":
+    main()

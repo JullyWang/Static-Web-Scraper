@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from scraper.fetch import fetch_html
-from scraper.utils.cleaner import clean_price
+from scraper.cleaner import clean_price
 
 # define url + request's headers
 url = "https://books.toscrape.com/"
