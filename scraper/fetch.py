@@ -1,8 +1,13 @@
+from bs4 import BeautifulSoup
 import requests
 
 # fetch html and raise for error
-def fetch_html(url, headers):
-    response = requests.get(url, headers=headers, timeout=10)
+def fetch_html(client):
+
+    response = requests.get(
+        client.base_url, 
+        headers=client.headers, 
+        timeout=10)
     try:
         response.raise_for_status()
         html = response.text
@@ -12,3 +17,12 @@ def fetch_html(url, headers):
         print("A request error occurred: ", e)
 
     return html
+
+
+def make_soup(client):
+    html = fetch_html(client)
+    soup = BeautifulSoup(html, 'html.parser')
+
+    return soup
+
+

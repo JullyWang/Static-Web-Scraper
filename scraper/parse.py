@@ -2,22 +2,14 @@ from bs4 import BeautifulSoup
 from scraper.fetch import fetch_html
 from scraper.cleaner import clean_price
 
-# define url + request's headers
-url = "https://books.toscrape.com/"
 
-headers = {
-    "User-Agent": "Mozilla/5.0"
-}
+def parse_title(soup):
 
-# make soup
-html = fetch_html(url, headers)
-soup = BeautifulSoup(html, "html.parser")
+    title = soup.find("title")
+    return title.text.strip()
 
-def parse_title(html, soup):
-
-    return soup.title.text.strip()
-
-def parse_category(html, soup):
+def parse_category(soup):
+    
     data = []
 
     categories = soup.find("div", class_="side_categories")
@@ -34,7 +26,7 @@ def parse_category(html, soup):
 
     return data
 
-def parse_product(html, soup):
+def parse_product(soup):
     data = []
 
     blocks = soup.find_all("article", class_="product_pod")

@@ -1,6 +1,7 @@
 import os
 
-from scraper.fetch import fetch_html
+from scraper.client import ScraperClient
+from scraper.fetch import fetch_html, make_soup
 from scraper.parse import (
     parse_title,
     parse_category,
@@ -13,11 +14,7 @@ def main():
     # Config
     # =========================
 
-    url = "https://books.toscrape.com/"
-
-    headers = {
-        "User-Agent": "Mozilla/5.0"
-    }
+    client = ScraperClient()
 
     base_dir = os.getcwd()
 
@@ -38,20 +35,22 @@ def main():
     # =========================
     # Fetch
     # =========================
-    html = fetch_html(url, headers)
+
+    html = fetch_html(client)
+    soup = make_soup(client)
 
     # =========================
     # Parse
     # =========================
     # main page title
-    main_title = parse_title(html)
+    main_title = parse_title(soup)
     print(f"Page title: {main_title}")
 
     # categories
-    categories = parse_category(html)
+    categories = parse_category(soup)
 
     # products
-    books = parse_product(html)
+    books = parse_product(soup)
 
     # =========================
     # Export
