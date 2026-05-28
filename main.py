@@ -1,5 +1,6 @@
 import os
 
+from cli import get_args
 from scraper.client import ScraperClient
 from scraper.fetch import fetch_html, make_soup
 from scraper.parse import (
@@ -42,26 +43,34 @@ def main():
     # =========================
     # Parse
     # =========================
+
+    # get arguments from argparse
+    args = get_args()
+
     # main page title
-    main_title = parse_title(soup)
-    print(f"Page title: {main_title}")
+    if args.title:
+        main_title = parse_title(soup)
+        print(f"Page title: {main_title}")
 
-    # categories
-    categories = parse_category(soup)
+    if args.categories:
+        # categories
+        categories = parse_category(soup)
+        print(f"[INFO] Successfully parsed {len(categories)} categories")
 
-    # products
-    books = parse_product(soup)
+        if args.export == 'csv':
+            export_csv(categories, category_file)
+            print("[INFO] Export completed!")
 
-    # =========================
-    # Export
-    # =========================
-    # categories
-    export_csv(categories, category_file)
+    if args.products:
+        # products
+        books = parse_product(soup)
+        print(f"[INFO] Successfully parsed {len(products)} categories")
 
-    # products
-    export_csv(books, product_file)
+        if args.export == 'csv':
+            export_csv(books, product_file)
+            print("[INFO] Export completed!")
 
-    print("Export completed.")
+
 
 if __name__ == "__main__":
     main()
