@@ -2,7 +2,7 @@ import os
 
 from cli import get_args
 from scraper.client import ScraperClient
-from scraper.fetch import fetch_html, make_soup
+from scraper.fetch import fetch_html, make_soup, pagination
 from scraper.parse import (
     parse_title,
     parse_category,
@@ -34,14 +34,14 @@ def main():
     )
 
     # =========================
-    # Fetch
+    # Fetch + Make Soup
     # =========================
 
     html = fetch_html(client)
     soup = make_soup(client)
 
     # =========================
-    # Parse
+    # Parse + Export
     # =========================
 
     # get arguments from argparse
@@ -70,7 +70,25 @@ def main():
             export_csv(books, product_file)
             print("[INFO] Export completed!")
 
+    # =========================
+    # Pagination
+    # =========================
 
+    if args.pages:
+
+        max_pages = args.pages
+        
+        for page in range(1, max_pages + 1):
+            url = client.build_url(page)
+
+            html = client.fetch_html(url)
+
+            soup = client.make_soup(html)
+
+            books = parse_product(soup)
+
+            print("OK")
+        
 
 if __name__ == "__main__":
     main()
