@@ -25,23 +25,3 @@ def make_soup(client):
 
     return soup
 
-def pagination(client):
-
-    pages = []
-
-    page_num = 1
-    pag_url = client.build_url(page_num)
-
-    while True:
-        response = requests.get(pag_url)
-
-        soup = BeautifulSoup(response.text, 'html.parser')
-        print(f"Scraping page {page_num}…")
-
-        if not soup.find("li", class_="next"):
-            break
-        
-        page_num += 1
-        pages.append(pag_url)
-
-    return pages

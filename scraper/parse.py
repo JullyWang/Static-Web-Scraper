@@ -52,4 +52,12 @@ def parse_product(soup):
     
     return data
 
+def parse_pages(soup, max_pages=None):
+
+    if max_pages:
+        iterable = range(1, max_pages + 1)
+
+        for page in iterable:
+            parse_product(page)
+
 
