@@ -6,6 +6,7 @@ from scraper.fetch import fetch_html, make_soup
 from scraper.parse import parse_title, parse_category, parse_product
 from scraper.pagination import pagination
 from scraper.export import export_csv, export_excel
+from pathlib import Path
 
 
 def main():
@@ -13,17 +14,15 @@ def main():
     # Config
     # =========================
 
-    # base directory
-    base_dir = os.getcwd()
+    base_dir = Path.cwd()
 
-    # csv file
-    category_file = os.path.join(base_dir, "data", "raw", "categories.csv")
-    product_file = os.path.join(base_dir, "data", "raw", "products.csv")
+    # csv
+    category_file = base_dir / "data" / "raw" / "categories.csv"
+    product_file = base_dir / "data" / "raw" / "products.csv"
 
-    # excel file
-    category_excel = os.path.join(base_dir, "data", "raw", "categories.xlsx")
-    product_excel = os.path.join(base_dir, "data", "raw", "products.xlsx")
-
+    # excel
+    category_excel = base_dir / "data" / "raw" / "categories.xlsx"
+    product_excel = base_dir / "data" / "raw" / "products.xlsx"
     # =========================
     # Fetch + Make Soup
     # =========================
@@ -55,10 +54,10 @@ def main():
         # categories export
         if args.export == "csv":
             export_csv(categories, category_file)
-            print("[INFO] Export to csv completed!")
+            print(f"[INFO] Exported {len(categories)} rows to {category_file.relative_to(base_dir)}")
         elif args.export == "excel":
             export_excel(categories, category_excel)
-            print("[INFO] Export to excel completed!")
+            print(f"[INFO] Exported {len(categories)} rows to {category_excel.relative_to(base_dir)}")
         else:
             print("Successfully parse, add '--export' option to save file")
 
@@ -71,12 +70,12 @@ def main():
         # product export
         if args.export == "csv":
             export_csv(products, product_file)
-            print("[INFO] Export to csv completed!")
+            print(f"[INFO] Exported {len(products)} rows to {product_file.relative_to(base_dir)}")
         elif args.export == "excel":
             export_excel(products, product_excel)
-            print("[INFO] Export to excel completed!")
+            print(f"[INFO] Exported {len(products)} rows to {product_excel.relative_to(base_dir)}")
         else:
-            print("Successfully parse, add '--export' option to save file")
+            print("Successfully parsed, add '--export' option to save file")
 
 
     # =========================

@@ -6,36 +6,44 @@ This is a beginner-friendly learning project created to practice:
 - Data extraction
 - CSV exporting
 
-# Preview
+## Preview
 
-Comming soon
+### Using
+![Demo](assets/demo2.gif)
 
-# Learning Goals
+### Output file
+CSV File
+![Demo](assets/csv_demo.png)
+
+Excel File
+![Demo](assets/excel_demo.png)
+
+## Learning Goals
 
 - Understand BeautifulSoup parsing
 - Practice clean project structure
 - Learn CSV export workflow
 
-# Challenges
+## Challenges
 
 - Extracting nested HTML elements
 - Separating functions for better maintainability and scalability
 - Organizing a scalable project structure
 
-# Usage
+## Usage
 
 ```bash
-python main.py
+python main.py --[OPTION]
 ```
 
-# Tech Stack
+## Tech Stack
 - Python
 - Requests
 - BeautifulSoup4
-- CSV
-- argparse
+- pandas
+- openpyxl
 
-# Future Improvements
+## Future Improvements
 
 - Export to Excel
 - Add pagination support

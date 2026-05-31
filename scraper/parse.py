@@ -38,7 +38,7 @@ def parse_product(soup):
         price_tag = block.find("p", class_="price_color")
         price = clean_price(price_tag.get_text())
 
-        avail_tag = block.find("i", class_="icon-ok")
+        avail_tag = block.find("p", class_="instock availability")
         status = avail_tag.get_text(strip=True)
 
         data.append({
