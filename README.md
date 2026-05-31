@@ -33,6 +33,7 @@ python main.py
 - Requests
 - BeautifulSoup4
 - CSV
+- argparse
 
 # Future Improvements
 

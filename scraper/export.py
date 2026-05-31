@@ -1,4 +1,5 @@
 import csv
+import pandas
 
 def export_csv(data, filename):
 
@@ -18,3 +19,8 @@ def export_csv(data, filename):
         writer.writerows(data)
 
     print(f"[INFO] Exported {len(data)} rows to {filename}")
+
+def export_excel(data, filename):
+    df = pd.DataFrame(data)
+
+    df.to_excel(filename, index=False)

@@ -24,7 +24,7 @@ def get_args():
                         help="Number of pages to scrape")
     # export option
     parser.add_argument('--export',
-                        help="Export to file. Default csv")
+                        help="Export to file. Choose 'csv' or 'excel'")
 
     args = parser.parse_args()
 
